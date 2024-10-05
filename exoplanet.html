@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Explore Exoplanets</title>
+    <style>
+        /* General Styles */
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #10141E;
+            color: #fff;
+            overflow-x: hidden;
+        }
+
+        /* Wrapper Style */
+        .wrapper {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header / Banner Section */
+        #banner {
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-image: url('https://img.freepik.com/free-photo/view-starry-night-sky-with-nature-mountains-landscape_23-2151614807.jpg?t=st=1727613345~exp=1727616945~hmac=ecdc3ca12d23962ef84549463ee5911bbab7c03962ef7255d532e4cac9eb8e24&w=826');
+            background-size: cover;
+            background-position: center;
+            position: relative;
+        }
+
+        #banner h2 {
+            font-size: 3rem;
+            margin: 0;
+            text-align: center;
+            color: #FFF;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+        }
+
+        #banner p {
+            font-size: 1.25rem;
+            margin-top: 20px;
+            text-align: center;
+            color: #FFF;
+        }
+
+        /* Exoplanet Cards Section */
+        #explore {
+            padding: 4rem 2rem;
+            background-color: #0F1B2A;
+            text-align: center;
+        }
+
+        #explore h2 {
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+            color: #00FFF0; /* Changed to neon cyan */
+        }
+
+        .card-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+        }
+
+        .card {
+            background-color: #1C2938;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 20px;
+            width: 30%;
+            text-align: center;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
+        }
+
+        .card img {
+            width: 100%;
+            border-radius: 8px;
+            height: 200px;
+            object-fit: cover;
+            margin-bottom: 15px;
+        }
+
+        .card h3 {
+            font-size: 1.5rem;
+            color: #FFF;
+            margin: 15px 0;
+        }
+
+        .card p {
+            font-size: 1rem;
+            color: #AAA;
+        }
+
+        .card a {
+            display: inline-block;
+            padding: 12px 24px;
+            background-color: #00FFF0; /* Neon cyan button */
+            border-radius: 5px;
+            color: #10141E;
+            text-decoration: none;
+            font-weight: bold;
+            transition: background-color 0.3s ease;
+        }
+
+        .card a:hover {
+            background-color: #00CFC8; /* Darker neon cyan on hover */
+        }
+
+        /* Responsive Design */
+        @media (max-width: 992px) {
+            .card {
+                width: 45%;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .card {
+                width: 100%;
+            }
+
+            #banner h2 {
+                font-size: 2.5rem;
+            }
+
+            #banner p {
+                font-size: 1rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Background GIF Section -->
+    <section id="banner">
+        <div class="wrapper">
+            <h2>Discover Exoplanets</h2>
+            <p>Begin your journey to explore the unknown worlds beyond our solar system!</p>
+        </div>
+    </section>
+
+    <!-- Exoplanet Cards Section -->
+    <section id="explore">
+        <div class="wrapper">
+            <h2>Select an Exoplanet to Explore</h2>
+            <div class="card-container">
+
+                <!-- Exoplanet 1 -->
+                <div class="card">
+                    <img src="https://i.ytimg.com/vi/qh9NF0yShiE/maxresdefault.jpg" alt="Exoplanet 1">
+                    <h3>Kepler-186f</h3>
+                    <p>Kepler-186f is an Earth-sized exoplanet orbiting within the habitable zone of the red dwarf star Kepler-186, the outermost of five such planets discovered around the star by NASA's Kepler space telescope. It is located about 580 light-years from Earth in the constellation of Cygnus.</p>
+                    <a href="exoplanet1-details.html">Start Journey</a>
+                </div>
+
+                <!-- Exoplanet 2 -->
+                <div class="card">
+                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTToSXdUaT-4I-c46NuYtWwBc37fQg-anodIQ&s" alt="Exoplanet 2">
+                    <h3>55 Cancri e</h3>
+                    <p>55 Cancri e is an exoplanet orbiting a Sun-like host star, 55 Cancri A. The mass of the exoplanet is about eight Earth masses and its diameter is about twice that of the Earth.Also called Janssen, 55 Cancri e is a so-called super-Earth, a rocky planet significantly larger than Earth but smaller than Neptune</p>
+                    <a href="exoplanet2-details.html">Start Journey</a>
+                </div>
+
+                <!-- Exoplanet 3 -->
+                <div class="card">
+                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQushJO_bJB3VLQWrcxb58Dq2R-qnSiG-uNYg&s" alt="Exoplanet 3">
+                    <h3>Epsilon Eridani b</h3>
+                    <p>Epsilon Eridani b, also known as AEgir [sic], is an exoplanet approximately 10.5 light-years away orbiting the star Epsilon Eridani, in the constellation of Eridanus. The planet was discovered in 2000, and as of 2024 remains the only confirmed planet in its planetary system.</p>
+                    <a href="exoplanet3-details.html">Start Journey</a>
+                </div>
+
+                <!-- Exoplanet 4 -->
+                <div class="card">
+                    <img src="https://api.time.com/wp-content/uploads/2020/10/51-Pegasi-b.png" alt="Exoplanet 4">
+                    <h3>51 Pegasi b</h3>
+                    <p>51 Pegasi b, officially named Dimidium, is an extrasolar planet approximately 50 light-years away in the constellation of Pegasus. It was the first exoplanet to be discovered orbiting a main-sequence star, the Sun-like 51 Pegasi, and marked a breakthrough in astronomical research.</p>
+                    <a href="exoplanet4-details.html">Start Journey</a>
+                </div>
+
+                <!-- Exoplanet 5 -->
+                <div class="card">
+                    <img src="https://stsci-opo.org/STScI-01HW67PCJZQ5SK68C3EPCAEVCC.jpg" alt="Exoplanet 5">
+                    <h3>WASP-43b</h3>
+                    <p>WASP-43b, formally named Astrolábos, is a transiting planet in orbit around the young, active, and low-mass star WASP-43 in the constellation Sextans. The planet is a hot Jupiter with a mass twice that of Jupiter, but with a roughly equal radius.</p>
+                    <a href="exoplanet5-details.html">Start Journey</a>
+                </div>
+
+                <!-- Exoplanet 6 -->
+                <div class="card">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/ba/Jkv.47UMa.c.png/800px-Jkv.47UMa.c.png" alt="Exoplanet 6">
+                    <h3>47 Ursae Majoris b</h3>
+                    <p>47 Ursae Majoris b, formally named Taphao Thong, is a gas planet and an extrasolar planet approximately 46 light-years from Earth in the constellation of Ursa Major.</p>
+                    <a href="exoplanet6-details.html">Start Journey</a>
+                </div>
+
+                <!-- Exoplanet 7 -->
+                <div class="card">
+                    <img src="https://www.uzaygo.com/wp-content/uploads/2022/06/Gliese-436b-Gezegeni.jpg" alt="Exoplanet 7">
+                    <h3>Gliese 436 b</h3>
+                    <p>Gliese 436 b is a Neptune-sized exoplanet orbiting the red dwarf Gliese 436. It was the first hot Neptune discovered with certainty and was among the smallest-known transiting planets in mass and radius, until the much smaller Kepler exoplanet discoveries began circa 2010</p>
+                    <a href="exoplanet7-details.html">Start Journey</a>
+                </div>
+
+                <!-- Exoplanet 8 -->
+                <div class="card">
+                    <img src="https://science.nasa.gov/wp-content/uploads/2023/11/gasgiant-7.jpg?w=1024" alt="Exoplanet 8">
+                    <h3>Epsilon Tauri b</h3>
+                    <p> Epsilon Tauri b, formally named Amateru, is a super-Jupiter exoplanet orbiting the K-type giant star Epsilon Tauri approximately 155 light-years away from the Earth in the constellation of Taurus. It orbits the star further out than Earth orbits the Sun. It has moderate eccentricity.</p>
+                    <a href="exoplanet8-details.html">Start Journey</a>
+                </div>
+
+                <!-- Exoplanet 9 -->
+                <div class="card">
+                    <img src="https://eyes.nasa.gov/apps/exo/assets/image/thumbnail/exoplanet/55-cnc-e-list.webp" alt="Exoplanet 9">
+                    <h3>18 Delphini b</h3>
+                    <p>18 Delphini b, formally named Arion, is an extrasolar planet approximately 249 light-years away in the constellation of Delphinus. The 993-day period planet orbits the yellow giant star 18 Delphini. A very massive and dense planet with a minimum mass of 10.3 MJ, it was discovered on February 19, 2008, by Bun'ei Sato</p>
+                    <a href="exoplanet9-details.html">Start Journey</a>
+                </div>
+
+                <!-- Exoplanet 10 -->
+                <div class="card">
+                    <img src="https://i.seadn.io/gae/M1B85S9xDRCa1A10gPQRP-Px_tneD71v6VnkvopeC8NaT6d00MheMRcQ9gGIQRr7hEThERNWF3MDg4qblYZMQmkyirv2ZsgrSNOY?auto=format&dpr=1&w=1000" alt="Exoplanet 10">
+                    <h3>XO-5b</h3>
+                    <p>XO-5b "Makropulos" is an extrasolar planet approximately 910 light years away in the constellation of Lynx. This planet was found by the transit method using the XO Telescope and announced in May 2008. It was also independently discovered by the HATNet Project</p>
+                    <a href="exoplanet10-details.html">Start Journey</a>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+</body>
+
+</html>
