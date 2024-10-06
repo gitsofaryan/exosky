@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exoplanet Constellation Leaderboard</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Roboto:wght@300;400;700&display=swap');
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+            color: #e0e0e0;
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .container {
+            max-width: 800px;
+            width: 100%;
+            padding: 2rem;
+            box-sizing: border-box;
+        }
+        h1 {
+            font-family: 'Orbitron', sans-serif;
+            text-align: center;
+            color: #fff;
+            font-size: 2.5rem;
+            margin-bottom: 2rem;
+            text-shadow: 0 0 10px rgba(255,255,255,0.5);
+        }
+        .leaderboard {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            padding: 1.5rem;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+        }
+        .constellation {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem;
+            margin-bottom: 1rem;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .constellation:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+        }
+        .constellation-name {
+            font-weight: bold;
+            font-size: 1.2rem;
+            color: #fff;
+        }
+        .vote-buttons {
+            display: flex;
+            gap: 0.5rem;
+        }
+        button {
+            background: transparent;
+            color: #fff;
+            border: 2px solid #fff;
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 1rem;
+        }
+        button:hover {
+            background: #fff;
+            color: #302b63;
+        }
+        .email-form {
+            display: flex;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+        input[type="email"] {
+            flex-grow: 1;
+            padding: 0.75rem;
+            border: none;
+            border-radius: 5px;
+            background: rgba(255, 255, 255, 0.1);
+            color: #fff;
+            font-size: 1rem;
+        }
+        input[type="email"]::placeholder {
+            color: rgba(255,255,255,0.5);
+        }
+        .subscribe-btn {
+            background: #e94560;
+            color: #fff;
+            border: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background 0.3s;
+            font-size: 1rem;
+        }
+        .subscribe-btn:hover {
+            background: #c81d4e;
+        }
+        .votes {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .star {
+            color: #ffd700;
+        }
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0px); }
+        }
+        .floating {
+            animation: float 3s ease-in-out infinite;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 class="floating">Exoplanet Constellation Leaderboard</h1>
+        <div id="leaderboard" class="leaderboard"></div>
+        <form id="emailForm" class="email-form">
+            <input type="email" id="emailInput" placeholder="Enter your email for cosmic updates" required>
+            <button type="submit" class="subscribe-btn">Subscribe</button>
+        </form>
+    </div>
+
+    <script>
+        const constellations = [
+            { id: 1, name: "Zorg's Belt", votes: 120 },
+            { id: 2, name: "Quantum Serpent", votes: 95 },
+            { id: 3, name: "Nebula Kraken", votes: 88 },
+            { id: 4, name: "Plasma Phoenix", votes: 75 },
+            { id: 5, name: "Galactic Lyre", votes: 62 },
+        ];
+
+        function renderLeaderboard() {
+            const leaderboardEl = document.getElementById('leaderboard');
+            leaderboardEl.innerHTML = '';
+
+            constellations.sort((a, b) => b.votes - a.votes);
+
+            constellations.forEach((constellation, index) => {
+                const constellationEl = document.createElement('div');
+                constellationEl.className = 'constellation';
+                constellationEl.innerHTML = `
+                    <div>
+                        <span class="constellation-name">${index + 1}. ${constellation.name}</span>
+                    </div>
+                    <div class="votes">
+                        <span><i class="fas fa-star star"></i> ${constellation.votes}</span>
+                        <div class="vote-buttons">
+                            <button onclick="vote(${constellation.id}, 1)"><i class="fas fa-chevron-up"></i></button>
+                            <button onclick="vote(${constellation.id}, -1)"><i class="fas fa-chevron-down"></i></button>
+                        </div>
+                    </div>
+                `;
+                leaderboardEl.appendChild(constellationEl);
+            });
+        }
+
+        function vote(id, increment) {
+            const constellation = constellations.find(c => c.id === id);
+            if (constellation) {
+                constellation.votes += increment;
+                if (constellation.votes < 0) constellation.votes = 0;
+                renderLeaderboard();
+            }
+        }
+
+        document.getElementById('emailForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const email = document.getElementById('emailInput').value;
+            alert(`Thank you for subscribing to cosmic updates! We've registered: ${email}`)
+            document.getElementById('emailInput').value = '';
+        });
+
+        renderLeaderboard();
+    </script>
+</body>
+</html>
