@@ -2,7 +2,7 @@
 <html>
 
 <head>
-    <title>Celestia: Home</title>
+    <title>ExoWorlds</title>
     <meta name="description" content="Celestia is a free space simulator for Windows, Linux, macOS, iOS and Android. You can freely explore space in three dimensions. The program displays objects and orbits based on scientific data." />
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -10,29 +10,61 @@
     <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
 </head>
 
+<style>
+    /* Style for the sign-in button */
+    #signin-btn {
+        background-color: #4CAF50; /* Green */
+        border: none;
+        color: white;
+        padding: 10px 20px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 16px;
+        margin: 4px 2px;
+        cursor: pointer;
+        border-radius: 5px;
+        transition: background-color 0.3s;
+        margin: 15px;
+    }
+
+    #signin-btn:hover {
+        background-color: #45a049;
+    }
+
+    /* Hidden logo initially */
+    #signin-logo {
+        display: none;
+        margin-top: 10px;
+    }
+</style>
+
+
+
 <body class="landing">
     <div id="page-wrapper">
 
         <!-- Header -->
         <header id="header">
-            <h1 id="logo"><a href="/">Stellar Insights</a></h1>
+            <h1 id="logo"><a href="/">ExoWorlds</a></h1>
             <nav id="nav">
                 <ul>
                     <li><a href="/">Home</a></li>
                     <li><a href="exoplanet.html">Explore Exoplanets</a></li>
-                    <li><a href="constellation-maker-master/index.html">Constellation Creator</a></li>
                     <li>
-                        <a href="/exoplanet_viewer/index.html">Exopalnet Viewer</a>
+                        <a href="#">Exo-View</a>
                         <ul>
-                            <li><a href="guides.html">Celestia Guides</a></li>
-                            <li><a href="faq.html">FAQ</a></li>
-                            <li><a href="sites.html">Related Sites</a></li>
+                            <li><a href="https://exoplanetviewer.space/">MilkyView</a></li>
+                            <li><a href="https://snoopj.github.io/exoplanet_viewer/">SolarView</a></li>
+                            <li><a href="https://i17zob.github.io/planets/">ExoView</a></li>
                         </ul>
                     </li>
+                    <li><a href="constellation-maker-master/index.html">Constellation Creator</a></li>
+                    <li><a href="gallery.html">3D View</a></li>
                     <li>
-                        <a href="#">Add-Ons</a>
+                        <!-- <a href="#">Add-Ons</a> -->
                         <ul>
-                            <li><a href="addons.html">Download Links</a></li>
+                            <!-- <li><a href="addons.html">Download Links</a></li> -->
                             <li>
                                 <a href="#">LUA Tools</a>
                                 <ul>
@@ -43,14 +75,17 @@
                             <li><a href="#">Utilites</a>
                                 <ul>
                                     <li><a href="config-manager.html">Celestia Config Manager</a></li>
+                                    <br>
                                     <li><a href="utilites.html">Other</a></li>
                                 </ul>
                             </li>
                         </ul>
                     </li>
-                    <li><a href="gallery.html">Gallery</a></li>
-                    <li><a href="/forum">Forum</a></li>
-                </ul>
+
+                    <button id="signin-btn">Sign in</button>
+<img id="signin-logo" src="images/logo.png" alt="Logo" width="50" height="50" />
+
+                    </ul>
             </nav>
         </header>
 
@@ -58,8 +93,8 @@
         <section id="banner">
             <div class="content">
                 <header>
-                    <h2>Stellar Insights — Unlocking the Secrets of the Universe.</h2>
-                    <p>"Stellar Insights" is designed to explore and analyze the skies from the perspective of exoplanets.</p>
+                    <h2>ExoWorlds — Unlocking the Secrets of the Universe.</h2>
+                    <p>"ExoWorlds" is designed to explore and analyze the skies from the perspective of exoplanets.</p>
 
                 </header>
                 <span class="image"><img src="" alt="" /></span>
@@ -74,7 +109,7 @@
                 <div class="container">
                     <div class="row">
                         <div class="4u 12u$(medium)">
-                            <p><b>Stellar Insights is an innovative application</b>,
+                            <p><b>ExoWorlds is an innovative application</b>,
 
                                 Select an Exoplanet: Users can choose an exoplanet from a curated catalog, providing a personalized experience based on their interests.</p>
                         </div>
@@ -105,9 +140,9 @@
                     <p>Exosky lets you explore the universe from exoplanets.</p>
                 </header>
                 <p>
-                    Here’s a more professional version of the description for Stellar Insights:
+                    Here’s a more professional version of the description for ExoWorlds:
 
-                    Stellar Insights is an advanced application designed to revolutionize the way users experience and engage with the universe. Featuring an interactive 3D space simulator, the app enables users to venture beyond the solar system and explore the cosmos from the vantage point of distant exoplanets. By simulating real astronomical data, Stellar Insights offers an immersive learning tool that provides both novice astronomy enthusiasts and advanced students with unparalleled access to the stars. Whether you're looking to deepen your knowledge or simply marvel at the cosmos, the app delivers an expansive range of features tailored to engage users at every level of expertise.
+                    ExoWorlds is an advanced application designed to revolutionize the way users experience and engage with the universe. Featuring an interactive 3D space simulator, the app enables users to venture beyond the solar system and explore the cosmos from the vantage point of distant exoplanets. By simulating real astronomical data, ExoWorlds offers an immersive learning tool that provides both novice astronomy enthusiasts and advanced students with unparalleled access to the stars. Whether you're looking to deepen your knowledge or simply marvel at the cosmos, the app delivers an expansive range of features tailored to engage users at every level of expertise.
 
                     </p>
             </div>
@@ -167,7 +202,7 @@
                         <section class="4u 6u(medium) 12u$(xsmall)">
                             <span class="icon alt major fa-map"></span>
                             <h3>3D Space Stimulator</h3>
-                            <p>The app enables users to venture beyond the solar system and explore the cosmos from the vantage point of distant exoplanets. By simulating real astronomical data, Stellar Insights offers an immersive learning tool that provides both novice</p>
+                            <p>The app enables users to venture beyond the solar system and explore the cosmos from the vantage point of distant exoplanets. By simulating real astronomical data, ExoWorlds offers an immersive learning tool that provides both novice</p>
                         </section>
                         <section class="4u 6u(medium) 12u$(xsmall)">
                             <span class="icon alt major fa-headphones"></span>
@@ -193,6 +228,20 @@
     <script src="assets/js/skel.min.js"></script>
     <script src="assets/js/util.js"></script>
     <script src="assets/js/main.js"></script>
+    <script>
+        document.getElementById("signin-btn").addEventListener("click", function() {
+            // Disable the button after clicking to prevent multiple clicks
+            this.disabled = true;
+            this.innerHTML = "Signing in...";
+
+            // Show the logo after 3 seconds
+            setTimeout(function() {
+                document.getElementById("signin-logo").style.display = "block";
+                document.getElementById("signin-btn").style.display = "none"; // Hide the button
+            }, 3000);
+        });
+    </script>
+
 
 </body>
 

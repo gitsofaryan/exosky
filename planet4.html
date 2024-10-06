@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kepler-186f Star and Planet Map</title>
+    <link rel='shortcut icon' href='images/star.ico'>
+    <style>
+        body {
+            background-color: rgb(5, 5, 32);
+            color: white;
+            overflow: hidden;
+        }
+        #canvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            cursor: crosshair;
+        }
+        #controls {
+            position: relative;
+            z-index: 1;
+            margin: 20px;
+        }
+        button {
+            margin: 5px;
+        }
+        #constellation-name {
+            margin: 5px;
+        }
+        .tooltip {
+            position: absolute;
+            background: rgba(0, 0, 0, 0.7);
+            color: white;
+            padding: 5px;
+            border-radius: 3px;
+            display: none;
+            pointer-events: none;
+        }
+    </style>
+</head>
+<body>
+    <main>
+        <canvas id="canvas"></canvas>
+        <div id="controls">
+            <input type="text" id="constellation-name" placeholder="Enter constellation name" />
+            <button id="clear">Clear</button>
+            <button id="save">Save</button>
+        </div>
+        <div class="tooltip" id="tooltip"></div>
+    </main>
+
+    <script>
+        const canvas = document.getElementById('canvas');
+        const ctx = canvas.getContext('2d');
+        const tooltip = document.getElementById('tooltip');
+        let stars = [];
+        let planets = [];
+        let drawnLines = [];
+        let selectedStars = [];
+        const backgroundImage = new Image();
+        backgroundImage.crossOrigin = "Anonymous";
+        backgroundImage.src = 'https://images.unsplash.com/photo-1715323866556-7b25fcc6ee50?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D';
+
+        // Authentic star names for 100 stars
+        const starNames = [
+            "Sirius", "Canopus", "Rigil Kentaurus", "Arcturus", "Vega", 
+            "Capella", "Rigel", "Procyon", "Achernar", "Betelgeuse", 
+            "Hadar", "Altair", "Acrux", "Aldebaran", "Antares", 
+            "Spica", "Pollux", "Fomalhaut", "Deneb", "Mimosa", 
+            "Regulus", "Adhara", "Castor", "Shaula", "Bellatrix", 
+            "Elnath", "Miaplacidus", "Alnilam", "Gamma Velorum", "Alnair", 
+            "Alnitak", "Dubhe", "Mirfak", "Wezen", "Sargas", 
+            "Kaus Australis", "Avior", "Alkaid", "Menkent", "Atria", 
+            "Alhena", "Peacock", "Alphard", "Hamal", "Diphda", 
+            "Alcyone", "Zubenelgenubi", "Algol", "Markab", "Rasalhague", 
+            "Tiaki", "Mirzam", "Nunki", "Gienah", "Ankaa", 
+            "Suhail", "Phact", "Sabik", "Denebola", "Mintaka", 
+            "Alpherg", "Alrescha", "Sadr", "Muphrid", "Saiph", 
+            "Alpheratz", "Schedar", "Kochab", "Aldhibah", "Caph",
+            "Sadalbari", "Almageddon", "Phecda", "Alioth", "Kastor", 
+            "Thuban", "Dabih", "Herculis", "Altair", "Sirius B", 
+            "Gliese 581", "Alpha Centauri A", "Alpha Centauri B", "Tau Ceti", "Proxima Centauri",
+            "Aldebaran B", "Betelgeuse A", "Kappa Andromedae", "Iota Draconis", "Zeta Ophiuchi", 
+            "Theta Serpentis", "Xi Bootis", "Sigma Octantis", "Delta Velorum", "Mu Herculis",
+            "Theta Scorpii", "Delta Aquilae", "Gamma Draconis", "Rho Cassiopeiae", "Eta Lyrae", 
+            "Beta Capricorni", "Beta Carinae", "Epsilon Scorpii", "Gamma Canum Venaticorum", "Theta Orionis", 
+            "Rho Arietis", "Delta Herculis", "Kappa Pavonis", "Mu Canis Majoris", "Epsilon Pegasi"
+        ];
+
+        // Updated starData array for 100 stars with random sizes
+        const starData = [];
+        for (let i = 0; i < 100; i++) {
+            const ra = Math.random() * 2 * Math.PI - Math.PI;  // Random RA
+            const dec = Math.random() * Math.PI - Math.PI / 2; // Random Dec
+            const brightness = Math.random(); // Random brightness between 0 and 1
+            const radius = Math.random() * 5 + 1; // Random radius between 1 and 6
+            const name = starNames[i % starNames.length]; // Assign authentic star name
+            starData.push({ ra, dec, brightness, radius, name });
+        }
+
+        // Kepler-186 planetary system data (visible planets from Kepler-186f)
+        const planetData = [
+            { ra: 0.5, dec: 0.3, brightness: 1.5, name: 'Kepler-186b' },
+            { ra: -0.8, dec: 0.1, brightness: 1.3, name: 'Kepler-186c' },
+            { ra: 1.2, dec: -0.4, brightness: 1.4, name: 'Kepler-186d' },
+            { ra: 0.9, dec: -0.1, brightness: 1.2, name: 'Kepler-186e' }
+        ];
+
+        function convertToCanvasCoordinates(ra, dec) {
+            const x = (ra + Math.PI) / (2 * Math.PI) * canvas.width;
+            const y = (Math.PI / 2 - dec) / Math.PI * canvas.height;
+            return { x, y };
+        }
+
+        function createStarsAndPlanets() {
+            starData.forEach(star => {
+                const { ra, dec, brightness, radius } = star;
+                const { x, y } = convertToCanvasCoordinates(ra, dec);
+                stars.push({ x, y, brightness, radius, name: star.name });
+            });
+
+            planetData.forEach(planet => {
+                const { ra, dec, brightness, name } = planet;
+                const { x, y } = convertToCanvasCoordinates(ra, dec);
+                planets.push({ x, y, brightness, name });
+            });
+        }
+
+        // Draw star as a simple circle with a luminance effect
+        function drawStar(x, y, radius, brightness) {
+            ctx.beginPath();
+            ctx.arc(x, y, radius, 0, Math.PI * 2);
+            ctx.fillStyle = `rgba(255, 255, 255, ${brightness})`; // Brightness effect
+            ctx.fill();
+            ctx.closePath();
+        }
+
+        function drawStars() {
+            stars.forEach(star => {
+                drawStar(star.x, star.y, star.radius, star.brightness);
+            });
+        }
+
+        // Draw planet as a larger circle with a label
+        function drawPlanet(x, y, name) {
+            const radius = 10; // Increased radius for planets
+            ctx.beginPath();
+            ctx.arc(x, y, radius, 0, Math.PI * 2);
+            ctx.fillStyle = 'yellow';
+            ctx.fill();
+            ctx.closePath();
+
+            // Draw planet name next to the planet
+            ctx.fillStyle = 'white';
+            ctx.font = '12px Arial';
+            ctx.fillText(name, x + radius + 5, y + 5); // Offset to avoid overlap
+        }
+
+        function drawPlanets() {
+            planets.forEach(planet => {
+                drawPlanet(planet.x, planet.y, planet.name);
+            });
+        }
+
+        // Draw lines between stars
+        function drawLines() {
+            ctx.beginPath();
+            drawnLines.forEach(line => {
+                ctx.moveTo(line.start.x, line.start.y);
+                ctx.lineTo(line.end.x, line.end.y);
+            });
+            ctx.strokeStyle = 'rgba(255, 255, 255, 0.5)';
+            ctx.lineWidth = 1.5;
+            ctx.stroke();
+            ctx.closePath();
+        }
+
+        function drawTooltip(x, y, name) {
+            tooltip.style.left = `${x + 10}px`;
+            tooltip.style.top = `${y + 10}px`;
+            tooltip.innerText = name;
+            tooltip.style.display = 'block';
+        }
+
+        function clearTooltip() {
+            tooltip.style.display = 'none';
+        }
+
+        // Handle mouse click events
+        canvas.addEventListener('click', function(event) {
+            const rect = canvas.getBoundingClientRect();
+            const mouseX = event.clientX - rect.left;
+            const mouseY = event.clientY - rect.top;
+
+            // Check for star clicks
+            const clickedStar = stars.find(star => {
+                const dist = Math.sqrt((mouseX - star.x) ** 2 + (mouseY - star.y) ** 2);
+                return dist < star.radius;
+            });
+
+            if (clickedStar) {
+                if (selectedStars.length < 2) {
+                    selectedStars.push(clickedStar);
+                    drawTooltip(mouseX, mouseY, clickedStar.name);
+
+                    if (selectedStars.length === 2) {
+                        // Draw a line between the two selected stars
+                        drawnLines.push({ start: selectedStars[0], end: selectedStars[1] });
+                        selectedStars = []; // Reset selection
+                    }
+                }
+            } else {
+                clearTooltip();
+                selectedStars = []; // Clear selection if clicked outside a star
+            }
+
+            redrawCanvas();
+        });
+
+        function redrawCanvas() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            ctx.drawImage(backgroundImage, 0, 0, canvas.width, canvas.height);
+            drawStars();
+            drawPlanets();
+            drawLines();
+        }
+
+        document.getElementById('clear').addEventListener('click', function() {
+            drawnLines = []; // Clear all lines
+            redrawCanvas();
+        });
+
+        document.getElementById('save').addEventListener('click', function() {
+            const link = document.createElement('a');
+            link.download = 'constellation.png';
+            link.href = canvas.toDataURL();
+            link.click();
+        });
+
+        // Resize canvas to fill window
+        window.addEventListener('resize', function() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+            redrawCanvas();
+        });
+
+        // Initial canvas setup
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+        backgroundImage.onload = () => {
+            createStarsAndPlanets();
+            redrawCanvas();
+        };
+
+    </script>
+</body>
+</html>
